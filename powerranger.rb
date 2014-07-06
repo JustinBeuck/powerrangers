@@ -30,15 +30,7 @@ class Person
 	end
 end
 
-class PowerRanger < Person 
-	attr_accessor :strength, :color
-
-	def initialize(name, caffeine_level = 0, strength = 0, color)
-		super(name, caffeine_level)
-		@strength = strength
-		@color = color
-	end
-
+module Fighting
 	def punch(person)
 		@caffeine_level -= 1
 		person.scream
@@ -49,6 +41,17 @@ class PowerRanger < Person
 		else 
 			puts "That was a weak hit"
 		end
+	end
+end
+
+class PowerRanger < Person 
+	include Fighting
+	attr_accessor :strength, :color
+
+	def initialize(name, caffeine_level = 0, strength = 0, color)
+		super(name, caffeine_level)
+		@strength = strength
+		@color = color
 	end
 
 	def use_megazord(person)
@@ -60,7 +63,7 @@ class PowerRanger < Person
 
 
 	def rest
-		person.caffeine_level =- 1
+		@caffeine_level =- 1
 		if @caffeine_level > 4
 			puts "You have a caffeine level of #{@caffeine_level} you cannot rest!"
 		else
@@ -70,23 +73,12 @@ class PowerRanger < Person
 end
 
 class EvilNinja < Person 
-	attr_accessor :evilness
+	include Fighting
+	attr_accessor :evilness, :strength
 
-	def initialize (name, caffeine_level, strength, evilness)
+	def initialize (name, caffeine_level = 0, strength, evilness)
 		super(name, caffeine_level)
-		
-	end
-
-	def punch(person)
-		@caffeine_level -= 1
-		person.scream
-		person.run
-		if @strength > 5 
-			person.caffeine_level -= 1
-			puts "#{name} does a somersault"
-		else 
-			puts "That was a weak hit"
-		end
+		@strength = strength
 	end
 
 	def cause_mayhem(person)
@@ -96,12 +88,12 @@ class EvilNinja < Person
 end
 
 def fight_scene
+	putty1 = EvilNinja.new("puddy1", 10, 10, 100)
+	putty2 = EvilNinja.new("puddy2", 10, 10, 100)
 	justin = Person.new("Justin", 99)
 	gsp = Person.new("GSP", 50)
 	jason = PowerRanger.new("Jason",100,40,"red")
 	billy = PowerRanger.new("Billy",50,20,"blue")
-	puddy1 = EvilNinja.new ("puddy1", 10, 10, 100)
-	puddy2 = EvilNinja.new ("puddy2", 10, 10, 100)
 
 	justin.run
 	gsp.drink_coffee
@@ -109,13 +101,13 @@ def fight_scene
 	billy.punch(putty1)
 	billy.rest
 	billy.run
-	puddy1.punch(jason)
-	puddy2.cause_mayhem(gsp)
+	putty1.punch(jason)
+	putty2.cause_mayhem(gsp)
 
 	
 end
 
-
+fight_scene
 
 
 
