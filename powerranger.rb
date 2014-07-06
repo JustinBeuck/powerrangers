@@ -33,7 +33,7 @@ end
 class PowerRanger < Person 
 	attr_accessor :strength, :color
 
-	def initialize(name, caffeine_level = 0, strength, color)
+	def initialize(name, caffeine_level = 0, strength = 0, color)
 		super(name, caffeine_level)
 		@strength = strength
 		@color = color
@@ -69,5 +69,56 @@ class PowerRanger < Person
 	end
 end
 
-class EvilNinja 
+class EvilNinja < Person 
+	attr_accessor :evilness
+
+	def initialize (name, caffeine_level, strength, evilness)
+		super(name, caffeine_level)
+		
+	end
+
+	def punch(person)
+		@caffeine_level -= 1
+		person.scream
+		person.run
+		if @strength > 5 
+			person.caffeine_level -= 1
+			puts "#{name} does a somersault"
+		else 
+			puts "That was a weak hit"
+		end
+	end
+
+	def cause_mayhem(person)
+		person.caffeine_level = 0 
+		puts "The Mayham has been delivered"
+		end
 end
+
+def fight_scene
+	justin = Person.new("Justin", 99)
+	gsp = Person.new("GSP", 50)
+	jason = PowerRanger.new("Jason",100,40,"red")
+	billy = PowerRanger.new("Billy",50,20,"blue")
+	puddy1 = EvilNinja.new ("puddy1", 10, 10, 100)
+	puddy2 = EvilNinja.new ("puddy2", 10, 10, 100)
+
+	justin.run
+	gsp.drink_coffee
+	jason.punch(putty1)
+	billy.punch(putty1)
+	billy.rest
+	billy.run
+	puddy1.punch(jason)
+	puddy2.cause_mayhem(gsp)
+
+	
+end
+
+
+
+
+
+
+
+
